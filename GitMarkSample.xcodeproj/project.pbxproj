@@ -37,6 +37,7 @@
 		BFAB4B37281CEE2300194FFF /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB4B36281CEE2300194FFF /* UserInfoModel.swift */; };
 		BFAB4B3A281CF02900194FFF /* UserItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB4B38281CF02900194FFF /* UserItem+CoreDataProperties.swift */; };
 		BFAB4B3B281CF02900194FFF /* UserItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB4B39281CF02900194FFF /* UserItem+CoreDataClass.swift */; };
+		BFAB4B3D281D08A400194FFF /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB4B3C281D08A400194FFF /* MainTabbarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		BFAB4B36281CEE2300194FFF /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		BFAB4B38281CF02900194FFF /* UserItem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BFAB4B39281CF02900194FFF /* UserItem+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserItem+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BFAB4B3C281D08A400194FFF /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 			children = (
 				BF3FAFF4281B9A6300E2FE15 /* Bookmarks */,
 				BF3FAFF3281B9A6000E2FE15 /* Search */,
+				BFAB4B3C281D08A400194FFF /* MainTabbarController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				BFAB4B37281CEE2300194FFF /* UserInfoModel.swift in Sources */,
 				BF3FAFF7281B9A7D00E2FE15 /* SearchViewController.swift in Sources */,
 				BFAB4B3B281CF02900194FFF /* UserItem+CoreDataClass.swift in Sources */,
+				BFAB4B3D281D08A400194FFF /* MainTabbarController.swift in Sources */,
 				BF3FAFFD281B9AB600E2FE15 /* BookmarksViewModel.swift in Sources */,
 				BF3FB003281B9CE700E2FE15 /* ManagedContext.swift in Sources */,
 				BFAB4B3A281CF02900194FFF /* UserItem+CoreDataProperties.swift in Sources */,
@@ -690,7 +694,6 @@
 				INFOPLIST_FILE = GitMarkSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -720,7 +723,6 @@
 				INFOPLIST_FILE = GitMarkSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

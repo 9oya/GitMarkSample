@@ -53,6 +53,26 @@ class UserListTbCellVM: CellConfigType {
             .bind(to: image)
             .disposed(by: disposeBag)
         
+        onAppear
+            .compactMap { _ in model.id }
+            .flatMap(provider.coreDataService.match)
+            .asObservable()
+            .subscribe { result in
+                switch result {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .success(let book):
+                    if book != nil {
+                        self.hasMarked.accept(true)
+                    } else {
+                        self.hasMarked.accept(false)
+                    }
+                }
+            } onError: { error in
+                print(error.localizedDescription)
+            }
+            .disposed(by: disposeBag)
+        
         bookmarkAction
             .filter { !$0 }
             .filter { [weak self] _ in
@@ -103,7 +123,7 @@ class UserListTbCellVM: CellConfigType {
                 case .failure(let error):
                     print(String(describing: error))
                 case .success:
-                    self?.hasMarked.accept(true)
+                    self?.hasMarked.accept(false)
                 }
             })
             .disposed(by: disposeBag)

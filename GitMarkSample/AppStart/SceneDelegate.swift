@@ -24,8 +24,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate {
     
     private func rootViewController() -> UIViewController {
+        let provider = ServiceProvider.resolve()
+        let searchVC = SearchViewController()
+        let searchVM = SearchViewModel(title: "Search",
+                                       placeHolder: "Name...",
+                                       provider: provider)
+        searchVC.viewModel = searchVM
         
+        let searchNC = UINavigationController(rootViewController: searchVC)
+        searchNC.tabBarItem.image = {
+            let config = UIImage
+                .SymbolConfiguration(pointSize: 15.0,
+                                     weight: .regular,
+                                     scale: .large)
+            return UIImage(systemName: "magnifyingglass",
+                           withConfiguration: config)
+        }()
         
-        return UIViewController()
+        let tc = MainTabbarController()
+        tc.viewControllers = [searchNC]
+        return tc
     }
 }

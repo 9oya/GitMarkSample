@@ -39,8 +39,11 @@ class UserListTbCell: UITableViewCell {
         
         nameLabel.text = nil
         imgView.image = nil
+        button.setImage(nil, for: .normal)
+        
         disposeBag = DisposeBag()
         viewModel = nil
+        
     }
     
     private func setupViews() {
@@ -73,7 +76,7 @@ class UserListTbCell: UITableViewCell {
         nameLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.left.equalTo(imgView.snp.right).offset(15)
-            $0.right.equalTo(button.snp.right).offset(-15)
+            $0.right.equalTo(button.snp.left).offset(-15)
         }
         button.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -94,7 +97,14 @@ class UserListTbCell: UITableViewCell {
         
         viewModel
             .infoModel
-            .compactMap { $0?.name }
+            .filter { $0 != nil }
+            .map { [weak self] model in
+                if let name = model!.name {
+                    return name
+                } else {
+                    return self?.viewModel?.userItemModel.login ?? ""
+                }
+            }
             .observe(on: MainScheduler.instance)
             .bind(to: nameLabel.rx.text)
             .disposed(by: disposeBag)
@@ -135,14 +145,6 @@ class UserListTbCell: UITableViewCell {
             .bind(to: viewModel.bookmarkAction)
             .disposed(by: disposeBag)
         
-    }
-    
-    private func subInfoLabel() -> UILabel {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 12)
-        label.numberOfLines = 2
-        label.lineBreakMode = .byTruncatingTail
-        return label
     }
     
 }

@@ -77,20 +77,42 @@ enum APIRouter: URLRequestConvertible {
         }
     }
     
+    private func additionalHttpHeaders() -> [(String, String)] {
+        var headers = [(String, String)]()
+        switch self {
+        case .userInfo, .searchUsers:
+            guard let apikey = Bundle.main.object(forInfoDictionaryKey: "APIKEY") as? String else {
+                return headers
+            }
+            let base64AuthString = "\(apikey)".data(using: String.Encoding.utf8)!.base64EncodedString()
+            headers.append((HTTPHeaderField.authentication.rawValue, "Basic \(base64AuthString)"))
+            return headers
+        }
+    }
+    
     func asURLRequest() throws -> URLRequest {
+        
+        // base url
         let url = try APIRouter.baseURLString.asURL()
         
+        // path
         var urlComponents = URLComponents(url: url.appendingPathComponent(path), resolvingAgainstBaseURL: false)
         
-        var urlRequest = URLRequest(url: urlComponents!.url!)
-        
-        urlRequest.httpMethod = method.rawValue
-        
+        // query strings
         if let queryItems = queryItems {
             urlComponents?.queryItems = queryItems
         }
         
+        var urlRequest = URLRequest(url: urlComponents!.url!)
+        
+        // method
+        urlRequest.httpMethod = method.rawValue
+        
+        // headers
         urlRequest.addValue(AcceptType.githubV3Json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
+        additionalHttpHeaders().forEach { (header) in
+            urlRequest.addValue(header.1, forHTTPHeaderField: header.0)
+        }
         
         return urlRequest
     }

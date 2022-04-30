@@ -9,8 +9,8 @@ import Foundation
 
 struct UserInfoModel: Codable {
     let name: String?
-    let createdAt: String
-    let updatedAt: String
+    let createdAt: String?
+    let updatedAt: String?
     
     enum CodingKeys: String, CodingKey {
         case name = "name"

@@ -59,8 +59,8 @@ class CoreDataService: CoreDataServiceProtocol {
             fetchRequest.predicate = NSPredicate(format: "%K = %@", argumentArray: [#keyPath(UserItem.id), Int32(id)])
             
             do {
-                let books = try self.managedContext.fetch(fetchRequest)
-                single(.success(.success(books.first)))
+                let users = try self.managedContext.fetch(fetchRequest)
+                single(.success(.success(users.first)))
             } catch let error {
                 single(.failure(error))
             }
