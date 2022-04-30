@@ -7,6 +7,20 @@
 
 import Alamofire
 
+enum HTTPHeaderField: String {
+    case authentication = "Authorization"
+    case contentType = "Content-Type"
+    case acceptType = "accept"
+    case acceptEncoding = "Accept-Encoding"
+    case userAgent = "User-Agent"
+    case appToken = "App-Token"
+}
+
+enum AcceptType: String {
+    case anyMIMEgtype = "*/*"
+    case githubV3Json = "application/vnd.github.v3+json"
+}
+
 enum UserSortType: String {
     case repos = "repositories"
     case followers = "followers"
@@ -21,9 +35,8 @@ enum OrderType: String {
 
 enum APIRouter: URLRequestConvertible {
     
-    case searchUsers(authId: String,
-                     authPw: String,
-                     query: String,
+    case userInfo(username: String)
+    case searchUsers(query: String,
                      sort: UserSortType,
                      order: OrderType,
                      page: Int,
@@ -33,13 +46,15 @@ enum APIRouter: URLRequestConvertible {
 
     var method: HTTPMethod {
         switch self {
-        case .searchUsers:
+        case .userInfo, .searchUsers:
             return .get
         }
      }
 
     var path: String {
         switch self {
+        case .userInfo(let username):
+            return "/users/\(username)"
         case .searchUsers:
             return "/search/users"
         }
@@ -48,7 +63,9 @@ enum APIRouter: URLRequestConvertible {
     var queryItems: [URLQueryItem]? {
         var queryItems = [URLQueryItem]()
         switch self {
-        case let .searchUsers(_, _, query, sort, order, page, perPage):
+        case .userInfo:
+            return nil
+        case let .searchUsers(query, sort, order, page, perPage):
             queryItems.append(URLQueryItem(name: "q", value: query))
             if sort != UserSortType.bestMatch {
                 queryItems.append(URLQueryItem(name: "sort", value: sort.rawValue))
@@ -72,6 +89,8 @@ enum APIRouter: URLRequestConvertible {
         if let queryItems = queryItems {
             urlComponents?.queryItems = queryItems
         }
+        
+        urlRequest.addValue(AcceptType.githubV3Json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
         
         return urlRequest
     }
