@@ -18,7 +18,7 @@
 		BF3FAFF9281B9A9E00E2FE15 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FAFF8281B9A9E00E2FE15 /* SearchViewModel.swift */; };
 		BF3FAFFB281B9AB000E2FE15 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FAFFA281B9AB000E2FE15 /* BookmarksViewController.swift */; };
 		BF3FAFFD281B9AB600E2FE15 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FAFFC281B9AB600E2FE15 /* BookmarksViewModel.swift */; };
-		BF3FAFFF281B9CB200E2FE15 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FAFFE281B9CB200E2FE15 /* NetworkRouter.swift */; };
+		BF3FAFFF281B9CB200E2FE15 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FAFFE281B9CB200E2FE15 /* APIRouter.swift */; };
 		BF3FB001281B9CD600E2FE15 /* ManagerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FB000281B9CD600E2FE15 /* ManagerProvider.swift */; };
 		BF3FB003281B9CE700E2FE15 /* ManagedContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FB002281B9CE700E2FE15 /* ManagedContext.swift */; };
 		BF3FB005281B9CF000E2FE15 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FB004281B9CF000E2FE15 /* CacheManager.swift */; };
@@ -60,7 +60,7 @@
 		BF3FAFF8281B9A9E00E2FE15 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		BF3FAFFA281B9AB000E2FE15 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		BF3FAFFC281B9AB600E2FE15 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
-		BF3FAFFE281B9CB200E2FE15 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
+		BF3FAFFE281B9CB200E2FE15 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		BF3FB000281B9CD600E2FE15 /* ManagerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerProvider.swift; sourceTree = "<group>"; };
 		BF3FB002281B9CE700E2FE15 /* ManagedContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedContext.swift; sourceTree = "<group>"; };
 		BF3FB004281B9CF000E2FE15 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 		BF3FAFF0281B99A600E2FE15 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				BF3FAFFE281B9CB200E2FE15 /* NetworkRouter.swift */,
+				BF3FAFFE281B9CB200E2FE15 /* APIRouter.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -456,7 +456,7 @@
 				BF3FB007281B9CF900E2FE15 /* ServiceProvider.swift in Sources */,
 				BF3FB015281B9DD700E2FE15 /* SearchUserModel.swift in Sources */,
 				BF3FB009281B9D0100E2FE15 /* NetworkService.swift in Sources */,
-				BF3FAFFF281B9CB200E2FE15 /* NetworkRouter.swift in Sources */,
+				BF3FAFFF281B9CB200E2FE15 /* APIRouter.swift in Sources */,
 				BF3FB00D281B9D0F00E2FE15 /* ImageService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
