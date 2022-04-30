@@ -4,10 +4,11 @@
         <attribute name="avatarUrl" optional="YES" attributeType="String"/>
         <attribute name="createdAt" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="login" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="updatedAt" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="UserItem" positionX="-45" positionY="0" width="128" height="104"/>
+        <element name="UserItem" positionX="-45" positionY="0" width="128" height="119"/>
     </elements>
 </model>

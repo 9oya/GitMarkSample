@@ -35,7 +35,7 @@ enum OrderType: String {
 
 enum APIRouter: URLRequestConvertible {
     
-    case userInfo(username: String)
+    case userInfo(login: String)
     case searchUsers(query: String,
                      sort: UserSortType,
                      order: OrderType,
@@ -53,8 +53,8 @@ enum APIRouter: URLRequestConvertible {
 
     var path: String {
         switch self {
-        case .userInfo(let username):
-            return "/users/\(username)"
+        case .userInfo(let login):
+            return "/users/\(login)"
         case .searchUsers:
             return "/search/users"
         }

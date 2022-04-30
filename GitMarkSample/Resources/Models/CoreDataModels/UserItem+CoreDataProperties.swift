@@ -21,5 +21,6 @@ extension UserItem {
     @NSManaged public var name: String?
     @NSManaged public var createdAt: String?
     @NSManaged public var updatedAt: String?
+    @NSManaged public var login: String?
 
 }

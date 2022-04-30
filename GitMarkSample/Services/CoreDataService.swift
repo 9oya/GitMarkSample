@@ -9,9 +9,26 @@ import Foundation
 import CoreData
 import RxSwift
 
+enum CoreDataError: Error, CustomStringConvertible {
+    case fetch
+    case store
+    case remove
+    
+    var description: String {
+        switch self {
+        case .fetch:
+            return "CoreDataError: fetch"
+        case .store:
+            return "CoreDataError: store"
+        case .remove:
+            return "CoreDataError: remove"
+        }
+    }
+}
+
 protocol CoreDataServiceProtocol {
     
-    func match(name: String)
+    func match(id: Int)
     -> PrimitiveSequence<SingleTrait, Result<UserItem?, Error>>
     
     func fetch(page: Int)
@@ -33,13 +50,13 @@ class CoreDataService: CoreDataServiceProtocol {
         self.managedContext = managedContext
     }
     
-    func match(name: String)
+    func match(id: Int)
     -> PrimitiveSequence<SingleTrait, Result<UserItem?, Error>> {
         return Single.create { [weak self] single in
             guard let `self` = self else { return Disposables.create() }
             
             let fetchRequest: NSFetchRequest<UserItem> = UserItem.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "%K = %@", argumentArray: [#keyPath(UserItem.name), name])
+            fetchRequest.predicate = NSPredicate(format: "%K = %@", argumentArray: [#keyPath(UserItem.id), Int32(id)])
             
             do {
                 let books = try self.managedContext.fetch(fetchRequest)
@@ -98,6 +115,7 @@ class CoreDataService: CoreDataServiceProtocol {
             guard let `self` = self else { return Disposables.create() }
             
             let userItem = UserItem(context: self.managedContext as! NSManagedObjectContext)
+            userItem.login = model.0.login
             userItem.id = Int32(model.0.id)
             userItem.avatarUrl = model.0.avatarUrl
             userItem.name = model.1.name

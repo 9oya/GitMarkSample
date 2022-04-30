@@ -13,7 +13,6 @@ import CoreData
 protocol ManagerProviderProtocol {
     
     var managedContext: ManagedContextProtocol { get }
-    
     var cacheManager: CacheManagerProtocol { get }
     
 }
