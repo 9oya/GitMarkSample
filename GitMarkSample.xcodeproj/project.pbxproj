@@ -38,6 +38,7 @@
 		BFAB4B3A281CF02900194FFF /* UserItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB4B38281CF02900194FFF /* UserItem+CoreDataProperties.swift */; };
 		BFAB4B3B281CF02900194FFF /* UserItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB4B39281CF02900194FFF /* UserItem+CoreDataClass.swift */; };
 		BFAB4B3D281D08A400194FFF /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB4B3C281D08A400194FFF /* MainTabbarController.swift */; };
+		BFB9BC5F281FA76E00F20704 /* BookmarkSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9BC5E281FA76E00F20704 /* BookmarkSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		BFAB4B38281CF02900194FFF /* UserItem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BFAB4B39281CF02900194FFF /* UserItem+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BFAB4B3C281D08A400194FFF /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
+		BFB9BC5E281FA76E00F20704 /* BookmarkSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +239,7 @@
 		BF3FAFF2281B99B400E2FE15 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BFB9BC5D281FA74E00F20704 /* SectionModels */,
 				BFAB4B33281CEE0E00194FFF /* CodableModels */,
 				BFAB4B32281CEE0400194FFF /* CoreDataModels */,
 			);
@@ -312,6 +315,14 @@
 				BFAB4B36281CEE2300194FFF /* UserInfoModel.swift */,
 			);
 			path = CodableModels;
+			sourceTree = "<group>";
+		};
+		BFB9BC5D281FA74E00F20704 /* SectionModels */ = {
+			isa = PBXGroup;
+			children = (
+				BFB9BC5E281FA76E00F20704 /* BookmarkSection.swift */,
+			);
+			path = SectionModels;
 			sourceTree = "<group>";
 		};
 		F6E28288B31714A13E0F4F44 /* Frameworks */ = {
@@ -534,6 +545,7 @@
 				BF3FAFFF281B9CB200E2FE15 /* APIRouter.swift in Sources */,
 				BFAB4B35281CEE1D00194FFF /* UserItemModel.swift in Sources */,
 				BF3FB00D281B9D0F00E2FE15 /* ImageService.swift in Sources */,
+				BFB9BC5F281FA76E00F20704 /* BookmarkSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

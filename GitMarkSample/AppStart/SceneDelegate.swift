@@ -41,8 +41,24 @@ extension SceneDelegate {
                            withConfiguration: config)
         }()
         
+        let bookmarksVM = BookmarksViewModel(title: "Bookmarks",
+                                             placeHolder: "Name...",
+                                             provider: provider)
+        let bookmarksVC = BookmarksViewController()
+        bookmarksVC.viewModel = bookmarksVM
+
+        let bookmarksNC = UINavigationController(rootViewController: bookmarksVC)
+        bookmarksNC.tabBarItem.image = {
+            let config = UIImage
+                .SymbolConfiguration(pointSize: 15.0,
+                                     weight: .regular,
+                                     scale: .large)
+            return UIImage(systemName: "bookmark",
+                           withConfiguration: config)
+        }()
+        
         let tc = MainTabbarController()
-        tc.viewControllers = [searchNC]
+        tc.viewControllers = [searchNC, bookmarksNC]
         return tc
     }
 }

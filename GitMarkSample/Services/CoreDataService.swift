@@ -31,6 +31,9 @@ protocol CoreDataServiceProtocol {
     func match(id: Int)
     -> PrimitiveSequence<SingleTrait, Result<UserItem?, Error>>
     
+    func search(with query: String, for page: Int)
+    -> PrimitiveSequence<SingleTrait, Result<[UserItem], Error>>
+    
     func fetch(page: Int)
     -> PrimitiveSequence<SingleTrait, Result<[UserItem], Error>>
     
@@ -61,6 +64,27 @@ class CoreDataService: CoreDataServiceProtocol {
             do {
                 let users = try self.managedContext.fetch(fetchRequest)
                 single(.success(.success(users.first)))
+            } catch let error {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    func search(with query: String, for page: Int)
+    -> PrimitiveSequence<SingleTrait, Result<[UserItem], Error>> {
+        return Single.create { [weak self] single in
+            guard let `self` = self else { return Disposables.create() }
+            
+            let fetchRequest: NSFetchRequest<UserItem> = UserItem.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", argumentArray: [#keyPath(UserItem.name), query])
+            
+            fetchRequest.fetchLimit = 10
+            fetchRequest.fetchOffset = 10 * (page-1)
+            do {
+                let users = try self.managedContext.fetch(fetchRequest)
+                single(.success(.success(users)))
             } catch let error {
                 single(.failure(error))
             }
