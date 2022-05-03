@@ -46,8 +46,8 @@ class NetworkService: NetworkServiceProtocol {
                         single(.failure(error))
                     } else if let data = response.value {
                         do {
-                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                            print(json ?? "")
+                            // let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                            // print(json ?? "")
                             let decoded = try self.decoder
                                 .decode(SearchResponseModel.self,
                                         from: data)
@@ -72,8 +72,8 @@ class NetworkService: NetworkServiceProtocol {
                         single(.failure(error))
                     } else if let data = response.value {
                         do {
-                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                            print(json ?? "")
+                            // let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                            // print(json ?? "")
                             let decoded = try self.decoder
                                 .decode(UserInfoModel.self,
                                         from: data)

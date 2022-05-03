@@ -14,15 +14,13 @@ class BookmarksViewModel {
     let title: String
     let placeHolder: String
     
-    var query: String?
-    var currPage = 0
-    var isLoadingNextPage: Bool = false
-    var isCanceled: Bool = false
+    private var query: String?
+    private var currPage = 1
+    private var isLoadingNextPage: Bool = false
+    private var currConfigsDict: [String: [CellConfigType]] = [:]
     
-    var currConfigsDict: [String: [CellConfigType]] = [:]
-    
-    var provider: ServiceProviderProtocol
-    var disposeBag: DisposeBag = DisposeBag()
+    private var provider: ServiceProviderProtocol
+    private var disposeBag: DisposeBag = DisposeBag()
     
     // MARK: Inputs
     var onAppear = PublishRelay<Bool>()
@@ -45,9 +43,16 @@ class BookmarksViewModel {
                 guard let `self` = self else { return }
                 self.isLoadingNextPage = true
                 self.currConfigsDict = [:]
+                self.currPage = 1
             })
-            .flatMap { _ in
-                provider.coreDataService.fetch(page: 1)
+            .map { _ in self.query }
+            .flatMap { [weak self] query -> PrimitiveSequence<SingleTrait, Result<[UserItem], Error>> in
+                guard let `self` = self else { return .never() }
+                if let query = query {
+                    return provider.coreDataService.search(with: query,
+                                                           for: self.currPage)
+                }
+                return provider.coreDataService.fetch(page: self.currPage)
             }
             .flatMap(convertToCellConfigs)
             .flatMap(bookmarkSections)
@@ -55,7 +60,7 @@ class BookmarksViewModel {
             .catchAndReturn([])
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                self.currPage = 1
+                self.currPage += 1
                 self.isLoadingNextPage = false
             })
             .bind(to: cellConfigs)
@@ -68,7 +73,6 @@ class BookmarksViewModel {
             .do(onNext: { [weak self] query in
                 guard let `self` = self else { return }
                 self.isLoadingNextPage = true
-                self.isCanceled = false
                 self.query = query
                 self.currConfigsDict = [:]
             })
@@ -89,7 +93,6 @@ class BookmarksViewModel {
         
         nextPage
             .filter { [weak self] _ in !(self?.isLoadingNextPage ?? false) }
-            .filter { [weak self] _ in !(self?.isCanceled ?? false) }
             .map { _ in self.query }
             .do(onNext: { [weak self] _ in
                 self?.isLoadingNextPage = true
@@ -104,12 +107,13 @@ class BookmarksViewModel {
             }
             .flatMap(convertToCellConfigs)
             .flatMap(bookmarkSections)
+            .do(onNext: { [weak self] _ in
+                self?.isLoadingNextPage = false
+            })
             .filter { $0.count > 0 }
             .catchAndReturn([])
             .do(onNext: { [weak self] _ in
-                guard let `self` = self else { return }
-                self.currPage += 1
-                self.isLoadingNextPage = false
+                self?.currPage += 1
             })
             .bind(to: cellConfigs)
             .disposed(by: disposeBag)
@@ -117,37 +121,16 @@ class BookmarksViewModel {
             cancel
                 .bind(onNext: { [weak self] _ in
                     guard let `self` = self else { return }
-                    self.isCanceled = true
-                    self.cellConfigs.accept([])
+                    self.isLoadingNextPage = true
+                    self.query = nil
+                    self.currPage = 1
+                    self.currConfigsDict = [:]
                 })
                 .disposed(by: disposeBag)
 
     }
     
     // MARK: Function components
-    
-    private func appendSections(with configsDict: [String: [CellConfigType]])
-    -> Single<[BookmarkSection]> {
-        return Single.create { single in
-            
-            var sections: [BookmarkSection] = self.cellConfigs.value
-            
-            let sortedConfigs = configsDict.sorted { lhs, rhs in
-                lhs.key > rhs.key
-            }
-            
-            sortedConfigs.forEach { key, val in
-                sections.append(
-                    BookmarkSection(header: key,
-                                    items: val)
-                )
-            }
-            
-            single(.success(sections))
-            
-            return Disposables.create()
-        }
-    }
     
     private func bookmarkSections(with configsDict: [String: [CellConfigType]])
     -> Single<[BookmarkSection]> {
@@ -183,6 +166,9 @@ class BookmarksViewModel {
                 print(error.localizedDescription)
                 observer(.failure(error))
             case .success(let items):
+                if items.count <= 0 {
+                    observer(.success([:]))
+                }
                 var configsDict: [String: [CellConfigType]] = self.currConfigsDict
                 
                 items.forEach { [weak self] item in
@@ -211,6 +197,7 @@ class BookmarksViewModel {
     }
     
     private func firstLetter(text: String) -> String? {
+        
         // 숫자
         if let first = text.first,
             let _ = Int(String(first)) {
@@ -240,6 +227,7 @@ class BookmarksViewModel {
         if let i = UnicodeScalar(0x1100 + x) {
             return String(i)
         }
+        
         return nil
     }
     

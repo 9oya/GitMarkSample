@@ -14,13 +14,13 @@ class SearchViewModel {
     let title: String
     let placeHolder: String
     
-    var query: String?
-    var currPage = 0
-    var isLoadingNextPage: Bool = false
-    var isCanceled: Bool = false
+    private var query: String?
+    private var currPage = 0
+    private var isLoadingNextPage: Bool = false
+    private var isCanceled: Bool = false
     
-    var provider: ServiceProviderProtocol
-    var disposeBag: DisposeBag = DisposeBag()
+    private var provider: ServiceProviderProtocol
+    private var disposeBag: DisposeBag = DisposeBag()
     
     // MARK: Inputs
     var search = BehaviorRelay<String?>(value: nil)

@@ -137,6 +137,12 @@ extension BookmarksViewController {
             .bind(to: viewModel.cancel)
             .disposed(by: disposeBag)
         
+        sc.searchBar.rx
+            .cancelButtonClicked
+            .map { true }
+            .bind(to: viewModel.onAppear)
+            .disposed(by: disposeBag)
+        
         tv.rx.contentOffset
             .filter { [weak self] offset in
                 guard let `self` = self else { return false }
