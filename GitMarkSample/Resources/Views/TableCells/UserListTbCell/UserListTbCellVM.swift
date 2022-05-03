@@ -149,7 +149,6 @@ class UserListTbCellVM: CellConfigType {
         """
         \(userItemModel.login)
         \(userItemModel.avatarUrl)
-        \(hasMarked.value)
         """
     }
     

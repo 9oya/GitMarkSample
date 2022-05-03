@@ -78,10 +78,18 @@ class CoreDataService: CoreDataServiceProtocol {
             guard let `self` = self else { return Disposables.create() }
             
             let fetchRequest: NSFetchRequest<UserItem> = UserItem.fetchRequest()
+            
+            // sort
+            let sort = NSSortDescriptor(key: #keyPath(UserItem.name), ascending: false)
+            fetchRequest.sortDescriptors = [sort]
+            
+            // condition
             fetchRequest.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", argumentArray: [#keyPath(UserItem.name), query])
             
+            // page limit
             fetchRequest.fetchLimit = 10
             fetchRequest.fetchOffset = 10 * (page-1)
+            
             do {
                 let users = try self.managedContext.fetch(fetchRequest)
                 single(.success(.success(users)))
@@ -99,11 +107,13 @@ class CoreDataService: CoreDataServiceProtocol {
             guard let `self` = self else { return Disposables.create() }
             
             let fetchRequest: NSFetchRequest<UserItem> = UserItem.fetchRequest()
-            let sort = NSSortDescriptor(key: #keyPath(UserItem.name), ascending: false)
-            fetchRequest.sortDescriptors = [sort]
+            let sortByName = NSSortDescriptor(key: #keyPath(UserItem.name), ascending: true)
+            let sortByLogin = NSSortDescriptor(key: #keyPath(UserItem.login), ascending: true)
+            fetchRequest.sortDescriptors = [sortByName, sortByLogin]
             
             fetchRequest.fetchLimit = 10
             fetchRequest.fetchOffset = 10 * (page-1)
+            
             do {
                 let users = try self.managedContext.fetch(fetchRequest)
                 single(.success(.success(users)))

@@ -90,14 +90,17 @@ class BookmarksViewModel {
         nextPage
             .filter { [weak self] _ in !(self?.isLoadingNextPage ?? false) }
             .filter { [weak self] _ in !(self?.isCanceled ?? false) }
-            .compactMap { _ in self.query }
+            .map { _ in self.query }
             .do(onNext: { [weak self] _ in
                 self?.isLoadingNextPage = true
             })
             .flatMap { [weak self] query -> PrimitiveSequence<SingleTrait, Result<[UserItem], Error>> in
                 guard let `self` = self else { return .never() }
-                return provider.coreDataService.search(with: query,
-                                                       for: self.currPage+1)
+                if let query = query {
+                    return provider.coreDataService.search(with: query,
+                                                           for: self.currPage+1)
+                }
+                return provider.coreDataService.fetch(page: self.currPage+1)
             }
             .flatMap(convertToCellConfigs)
             .flatMap(bookmarkSections)
@@ -208,6 +211,12 @@ class BookmarksViewModel {
     }
     
     private func firstLetter(text: String) -> String? {
+        // 숫자
+        if let first = text.first,
+            let _ = Int(String(first)) {
+            return String(first)
+        }
+        
         // 영문
         if let asciiVal = text.uppercased().first?.asciiValue,
            asciiVal >= 65,

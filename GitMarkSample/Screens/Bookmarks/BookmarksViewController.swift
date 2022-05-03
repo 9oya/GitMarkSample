@@ -85,6 +85,12 @@ extension BookmarksViewController {
                     for i in 0..<lhs.count {
                         if lhs[i].items.count != rhs[i].items.count {
                             return false
+                        } else {
+                            for j in 0..<lhs[i].items.count {
+                                if lhs[i].items[j].distinctIdentifier() != rhs[i].items[j].distinctIdentifier() {
+                                    return false
+                                }
+                            }
                         }
                     }
                     return true
@@ -100,14 +106,12 @@ extension BookmarksViewController {
                 if self?.tv.visibleCells.count ?? 0 > 0 {
                     self?.tv.scrollToRow(at: IndexPath(row: 0, section: 0),
                                          at: .top,
-                                         animated: false)
+                                         animated: true)
                 }
             })
             .bind(to: viewModel.onAppear)
             .disposed(by: disposeBag)
                 
-//        rx.view 
-        
         sc.searchBar.rx
             .textDidEndEditing
             .compactMap { $0 }
