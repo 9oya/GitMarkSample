@@ -107,30 +107,11 @@ class CoreDataService: CoreDataServiceProtocol {
             guard let `self` = self else { return Disposables.create() }
             
             let fetchRequest: NSFetchRequest<UserItem> = UserItem.fetchRequest()
-            let sortByName = NSSortDescriptor(key: #keyPath(UserItem.name), ascending: true)
-            let sortByLogin = NSSortDescriptor(key: #keyPath(UserItem.login), ascending: true)
-            fetchRequest.sortDescriptors = [sortByName, sortByLogin]
+            let sort = NSSortDescriptor(key: #keyPath(UserItem.name), ascending: true)
+            fetchRequest.sortDescriptors = [sort]
             
             fetchRequest.fetchLimit = 10
             fetchRequest.fetchOffset = 10 * (page-1)
-            
-            do {
-                let users = try self.managedContext.fetch(fetchRequest)
-                single(.success(.success(users)))
-            } catch let error {
-                single(.failure(error))
-            }
-            
-            return Disposables.create()
-        }
-    }
-    
-    func fetchAll()
-    -> PrimitiveSequence<SingleTrait, Result<[UserItem], Error>> {
-        return Single.create { [weak self] single in
-            guard let `self` = self else { return Disposables.create() }
-            
-            let fetchRequest: NSFetchRequest<UserItem> = UserItem.fetchRequest()
             
             do {
                 let users = try self.managedContext.fetch(fetchRequest)

@@ -88,13 +88,13 @@ class SearchViewModel {
             })
             .disposed(by: disposeBag)
                 
-            cancel
-                .bind(onNext: { [weak self] _ in
-                    guard let `self` = self else { return }
-                    self.isCanceled = true
-                    self.cellConfigs.accept([])
-                })
-                .disposed(by: disposeBag)
+        cancel
+            .bind(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.isCanceled = true
+                self.cellConfigs.accept([])
+            })
+            .disposed(by: disposeBag)
 
     }
     

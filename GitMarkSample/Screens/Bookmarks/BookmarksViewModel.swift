@@ -117,17 +117,17 @@ class BookmarksViewModel {
             })
             .bind(to: cellConfigs)
             .disposed(by: disposeBag)
+        
+        cancel
+            .bind(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.isLoadingNextPage = true
+                self.query = nil
+                self.currPage = 1
+                self.currConfigsDict = [:]
+            })
+            .disposed(by: disposeBag)
                 
-            cancel
-                .bind(onNext: { [weak self] _ in
-                    guard let `self` = self else { return }
-                    self.isLoadingNextPage = true
-                    self.query = nil
-                    self.currPage = 1
-                    self.currConfigsDict = [:]
-                })
-                .disposed(by: disposeBag)
-
     }
     
     // MARK: Function components
@@ -197,10 +197,19 @@ class BookmarksViewModel {
     }
     
     private func firstLetter(text: String) -> String? {
+        guard let first = text.first else { return nil }
+        do {
+            let regex = try NSRegularExpression(pattern: ".*[^A-Za-z0-9가-힣ㄱ-ㅎ].*")
+            if let _ = regex.firstMatch(in: "\(first)", range: NSMakeRange(0, 1)) {
+                // 특수문자
+                return "\(first)"
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
         
         // 숫자
-        if let first = text.first,
-            let _ = Int(String(first)) {
+        if let _ = Int(String(first)) {
             return String(first)
         }
         
@@ -212,7 +221,6 @@ class BookmarksViewModel {
         }
         
         // 한글
-        guard let first = text.first else { return nil }
         let unicode = UnicodeScalar(String(first))?.value
         guard let unicodeChar = unicode else { return nil }
         // 초성
