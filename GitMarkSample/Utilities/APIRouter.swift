@@ -81,12 +81,13 @@ enum APIRouter: URLRequestConvertible {
         var headers = [(String, String)]()
         switch self {
         case .userInfo, .searchUsers:
-            guard let apikey = Bundle.main.object(forInfoDictionaryKey: "APIKEY") as? String else {
-                return headers
-            }
-            let base64AuthString = "\(apikey)".data(using: String.Encoding.utf8)!.base64EncodedString()
-            headers.append((HTTPHeaderField.authentication.rawValue, "Basic \(base64AuthString)"))
             return headers
+//            guard let apikey = Bundle.main.object(forInfoDictionaryKey: "APIKEY") as? String else {
+//                return headers
+//            }
+//            let base64AuthString = "\(apikey)".data(using: String.Encoding.utf8)!.base64EncodedString()
+//            headers.append((HTTPHeaderField.authentication.rawValue, "Basic \(base64AuthString)"))
+//            return headers
         }
     }
     
