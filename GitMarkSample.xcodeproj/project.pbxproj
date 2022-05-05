@@ -39,6 +39,7 @@
 		BFAB4B3B281CF02900194FFF /* UserItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB4B39281CF02900194FFF /* UserItem+CoreDataClass.swift */; };
 		BFAB4B3D281D08A400194FFF /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB4B3C281D08A400194FFF /* MainTabbarController.swift */; };
 		BFB9BC5F281FA76E00F20704 /* BookmarkSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9BC5E281FA76E00F20704 /* BookmarkSection.swift */; };
+		BFB9BC932823599600F20704 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9BC922823599600F20704 /* String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		BFAB4B39281CF02900194FFF /* UserItem+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BFAB4B3C281D08A400194FFF /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		BFB9BC5E281FA76E00F20704 /* BookmarkSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSection.swift; sourceTree = "<group>"; };
+		BFB9BC922823599600F20704 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				BFAB4B14281CD5EE00194FFF /* UITableView+Extension.swift */,
+				BFB9BC922823599600F20704 /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				BFAB4B3B281CF02900194FFF /* UserItem+CoreDataClass.swift in Sources */,
 				BFAB4B3D281D08A400194FFF /* MainTabbarController.swift in Sources */,
 				BF3FAFFD281B9AB600E2FE15 /* BookmarksViewModel.swift in Sources */,
+				BFB9BC932823599600F20704 /* String+Extension.swift in Sources */,
 				BF3FB003281B9CE700E2FE15 /* ManagedContext.swift in Sources */,
 				BFAB4B3A281CF02900194FFF /* UserItem+CoreDataProperties.swift in Sources */,
 				BF3FAFCB281B90EB00E2FE15 /* AppDelegate.swift in Sources */,

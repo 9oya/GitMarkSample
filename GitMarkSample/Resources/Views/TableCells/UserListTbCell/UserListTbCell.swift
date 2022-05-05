@@ -14,7 +14,7 @@ class UserListTbCell: UITableViewCell {
     
     var imgView: UIImageView!
     var nameLabel: UILabel!
-    var button: UIButton!
+    var button: AnimatableButton!
     
     var disposeBag: DisposeBag = DisposeBag()
     var viewModel: UserListTbCellVM? {
@@ -59,7 +59,8 @@ class UserListTbCell: UITableViewCell {
             return label
         }()
         button = {
-            let btn = UIButton()
+            let btn = AnimatableButton()
+            btn.feedbackImpact = .style(.medium)
             return btn
         }()
         
@@ -137,10 +138,6 @@ class UserListTbCell: UITableViewCell {
             .disposed(by: disposeBag)
         
         button.rx.tap
-            .do(onNext: { _ in
-                let generator = UIImpactFeedbackGenerator(style: .medium)
-                generator.impactOccurred()
-            })
             .map { [weak self] _ in self?.button.isSelected ?? false }
             .bind(to: viewModel.bookmarkAction)
             .disposed(by: disposeBag)
